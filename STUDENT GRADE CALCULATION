@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+class GFG {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the number of subjects (an integer): ");
+        int N = sc.nextInt();
+
+        int total_marks = 0;
+        for (int i = 1; i <= N; i++) {
+            System.out.print("Enter marks obtained in subject " + i + " (out of 100): ");
+            total_marks += sc.nextInt();
+        }
+
+        float average_percentage = (total_marks / (float)N) / 100;
+        System.out.println("Total Marks: " + total_marks);
+        System.out.printf("Average Percentage: %.2f%%%n", average_percentage * 100);
+
+        if (average_percentage >= 0.9) {
+            System.out.println("Grade: A");
+        } else if (average_percentage >= 0.8) {
+            System.out.println("Grade: B");
+        } else if (average_percentage >= 0.7) {
+            System.out.println("Grade: C");
+        } else if (average_percentage >= 0.6) {
+            System.out.println("Grade: D");
+        } else {
+            System.out.println("Grade: F");
+        }
+    }
+}
