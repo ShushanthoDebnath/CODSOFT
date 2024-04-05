@@ -1,0 +1,128 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Student {
+    private String name;
+    private int rollNumber;
+    private String grade;
+
+    public Student(String name, int rollNumber, String grade) {
+        this.name = name;
+        this.rollNumber = rollNumber;
+        this.grade = grade;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getRollNumber() {
+        return rollNumber;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Roll Number: " + rollNumber + ", Grade: " + grade;
+    }
+}
+
+class StudentManagementSystem {
+    private ArrayList<Student> students = new ArrayList<>();
+    private Scanner scanner = new Scanner(System.in);
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
+    public void removeStudent(int rollNumber) {
+        students.removeIf(student -> student.getRollNumber() == rollNumber);
+    }
+
+    public Student searchStudent(int rollNumber) {
+        for (Student student : students) {
+            if (student.getRollNumber() == rollNumber) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public void displayAllStudents() {
+        for (Student student : students) {
+            System.out.println(student);
+        }
+    }
+
+    public void saveStudentDataToFile() {
+        // Implement saving student data to a file
+        // Example: Use FileWriter or PrintWriter
+    }
+
+    public void loadStudentDataFromFile() {
+        // Implement loading student data from a file
+        // Example: Use Scanner to read from a file
+    }
+
+    public void run() {
+        while (true) {
+            System.out.println("\nStudent Management System");
+            System.out.println("1. Add Student");
+            System.out.println("2. Remove Student");
+            System.out.println("3. Search Student");
+            System.out.println("4. Display All Students");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter roll number: ");
+                    int rollNumber = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline character
+                    System.out.print("Enter grade: ");
+                    String grade = scanner.nextLine();
+                    addStudent(new Student(name, rollNumber, grade));
+                    break;
+                case 2:
+                    System.out.print("Enter roll number of student to remove: ");
+                    int rollToRemove = scanner.nextInt();
+                    removeStudent(rollToRemove);
+                    break;
+                case 3:
+                    System.out.print("Enter roll number of student to search: ");
+                    int rollToSearch = scanner.nextInt();
+                    Student foundStudent = searchStudent(rollToSearch);
+                    if (foundStudent != null) {
+                        System.out.println("Student found: " + foundStudent);
+                    } else {
+                        System.out.println("Student not found.");
+                    }
+                    break;
+                case 4:
+                    displayAllStudents();
+                    break;
+                case 5:
+                    saveStudentDataToFile();
+                    System.out.println("Exiting Student Management System. Goodbye!");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
+
+public class task{
+    public static void main(String[] args) {
+        StudentManagementSystem sms = new StudentManagementSystem();
+        sms.run();
+    }
+}
